@@ -1,0 +1,58 @@
+
+
+server:
+  port: 4004
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://eureka:8070/eureka/
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+
+          routes:
+            - id: patient-route
+              uri: lb://PATIENT-SERVICE
+              predicates:
+                - Path=/patient,/patient/**
+              filters:
+                - JwtValidation
+                - ResponseTime
+
+            - id: auth-service-route
+              uri: http://auth-service:4005
+              predicates:
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
+
+            - id: billing-route
+              uri: lb://BILLING-SERVICE
+              predicates:
+                - Path=/billing/**
+              filters:
+                  - StripPrefix=1
+                  - JwtValidation

@@ -1,0 +1,41 @@
+
+spring:
+  Kafka:
+    bootstrap-servers: localhost:9094
+    consumer:
+          group-id: analytics-group
+          auto-offset-reset: earliest
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+  application:
+    name: analytics-service
+  profiles:
+    active: default
+  config:
+    import: "configserver:${CONFIG_SERVER_URL:http://localhost:8071}"
+
+
+server:
+  port: 4002
+
+
+management:
+  endpoint:
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/

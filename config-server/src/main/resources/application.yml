@@ -1,0 +1,22 @@
+
+server:
+  port: 8071
+
+
+spring:
+  application:
+    name: "config-server"
+  profiles:
+    active: git
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: "https://github.com/aviral5911/cloud-config-PMS"
+          default-label: main   # branch = main
+          timeout: 5            # try for 5 seconds if found ok else give up
+          clone-on-start: true  # Config Server clones the repo immediately when it starts up, before any client ask
+          force-pull: true      # if we made some local changes it would pull only the data from git and use that only
+encrypt:
+  key: "2D2E1B365B22835F1741E76F321B6"
