@@ -74,5 +74,5 @@ patient-microservice/
 
 ## Author
 
-**Aviral Choudhary**
-[LinkedIn](https://www.linkedin.com/in/aviral-choudhary-68b7ba291/) · [GitHub](https://github.com/aviral5911)
+**Ayush Sharma**
+[LinkedIn](https://www.linkedin.com/in/ayush-sharma-b60611245/) · [GitHub](https://github.com/as3848274)
